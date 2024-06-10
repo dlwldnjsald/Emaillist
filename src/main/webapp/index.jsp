@@ -3,7 +3,6 @@
 <%@page import="himedia.dao.EmaillistDaoOracleImpl"%>
 <%@page import="himedia.dao.EmaillistDao"%>
 
-
 <%@ page import="java.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -62,22 +61,26 @@ try {
 	<table border="1" cellpadding="5" cellspacing="2">
 		<tr>
 			<th>성</th>
-			<td><%-- = rs.getString("last_name") --%><%= vo.getLastName() %></td>
+			<td><%-- = rs.getString("last_name") --%>
+				<%= vo.getLastName() %></td>
 		</tr>
 		<tr>
 			<th>이름</th>
-			<td><%--= rs.getString("first_name") --%><%= vo.getFirstName() %></td>
+			<td><%--= rs.getString("first_name") --%>
+				<%= vo.getFirstName() %></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td><%--= rs.getString("email") --%><%= vo.getEmail() %></td>
+			<td><%--= rs.getString("email") --%>
+				<%= vo.getEmail() %></td>
 		</tr>
 		<tr class="toolbar">
 			<td colspan="2">
 			<form method="POST"
 				action="<%= request.getContextPath() %>/delete.jsp"
 				onsubmit="delete_item(event, this)">
-				<input type="hidden" name="no" value="<%--= rs.getString("no") --%><%= vo.getNo() %>">
+				<input type="hidden" name="no" value="<%--= rs.getString("no") --%>
+													  <%= vo.getNo() %>">
 				<button type="submit">삭제</button>	
 			</form>
 			</td>

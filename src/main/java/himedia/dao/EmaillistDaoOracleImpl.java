@@ -2,6 +2,7 @@ package himedia.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -87,7 +88,37 @@ public class EmaillistDaoOracleImpl implements EmaillistDao {
 	@Override
 	public boolean insert(EmailVo vo) {
 		
-		return false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int insertedCount = 0;
+		
+		try {
+			//커넥션 획득
+			conn = getConnection();
+			//실행 계획
+			String sql = "INSERT INTO emaillist (no, last_name, first_name, email)" +
+						"values (seq_emaillist_pk.nextval, ?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			//데이터 바인딩
+			pstmt.setString(1, vo.getLastName());
+			pstmt.setString(2, vo.getFirstName());
+			pstmt.setString(3, vo.getEmail());
+			//확정된 쿼리 수행
+			insertedCount = pstmt.executeUpdate();
+			
+		} catch (Exception e ) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null)  conn.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return 1 == insertedCount;
 	}
 
 	@Override
