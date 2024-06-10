@@ -1,6 +1,10 @@
+<%@page import="himedia.dao.EmaillistDaoOracleImpl"%>
+<%@page import="himedia.dao.EmaillistDao"%>
+<%@page import="himedia.dao.EmailVo"%>
 <%@ page import="java.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%
 //	데이터베이스 접속 정보 확인
 ServletContext context = getServletContext();
@@ -11,6 +15,16 @@ String dbpass = context.getInitParameter("dbpass");
 //폼 입력 데이터
 String no = request.getParameter("no");	//	pk
 
+if (no != null && !no.isEmpty()) {
+    
+    Long emailNo = Long.parseLong(no);
+    
+    EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser, dbpass);
+    
+   
+    boolean success = dao.delete(emailNo);
+
+/*
 String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
 
 try {
@@ -32,10 +46,22 @@ try {
 		//	다른 페이지로 리다이렉트 : 3xx
 		response.sendRedirect(request.getContextPath());
 	} else {
+		
+	*/
+	
+	if (success) { //delete 성공
+		response.sendRedirect(request.getContextPath());
+	} else { 
+		
+	
 		%>
 		<h1>Error</h1>
 		<p>아이템을 삭제하지 못했습니다.</p>
 		<%
+		
+	} 
+	
+/*
 	}
 	//	자원 정리
 	pstmt.close();
@@ -43,5 +69,6 @@ try {
 } catch (Exception e) {
 	throw e;
 }
-%>
+*/
+
 %>

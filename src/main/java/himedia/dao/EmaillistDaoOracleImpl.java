@@ -123,8 +123,34 @@ public class EmaillistDaoOracleImpl implements EmaillistDao {
 
 	@Override
 	public boolean delete(Long no) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		
+			Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    int deletedCount = 0;
+
+		    try {
+		        // Get connection
+		        conn = getConnection();
+		        // Prepare statement
+		        String sql = "DELETE FROM emaillist WHERE no=?";
+		        pstmt = conn.prepareStatement(sql);
+		        // Bind parameter
+		        pstmt.setLong(1, no);
+		        // Execute query
+		        deletedCount = pstmt.executeUpdate();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        // Close resources
+		        try {
+		            if (pstmt != null) pstmt.close();
+		            if (conn != null) conn.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return deletedCount == 1;
+		}
 
 }
