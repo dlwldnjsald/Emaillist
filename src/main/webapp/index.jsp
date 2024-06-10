@@ -18,6 +18,7 @@ String dbpass = context.getInitParameter("dbpass");
 </head>
 <body>
 	<h1>메일링 리스트</h1>
+	<h3>Model 1 방식</h3>
 	
 <%
 String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -27,11 +28,16 @@ try {
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	//데이터베이스 연결
 	Connection conn = DriverManager.getConnection(dburl,dbuser,dbpass);
+	//statement 생성
 	Statement stmt = conn.createStatement();
 	
 	//sql
 	String sql = "SELECT * from Emaillist ORDER BY created_at DESC";
 	ResultSet rs = stmt. executeQuery(sql);
+	
+	while(rs.next()) {
+		
+
 %>
 
 	<!-- 리스트 -->
@@ -39,21 +45,23 @@ try {
 	<table border="1" cellpadding="5" cellspacing="2">
 		<tr>
 			<th>성</th>
-			<td></td>
+			<td><%= rs.getString("last_name") %></td>
 		</tr>
 		<tr>
 			<th>이름</th>
-			<td></td>
+			<td><%= rs.getString("first_name") %></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td></td>
+			<td><%= rs.getString("email") %></td>
 		</tr>
 	</table>
 	<br />
 	<!--  /end -->
 
 <%
+
+	}
 
 	rs.close();
 	stmt.close();
@@ -67,7 +75,8 @@ try {
 
 %>
 	<p>
-		<a href="#">추가 이메일 등록</a>
+	<!--  ContextPath를 받아와서 form.jsp에 링크  -->
+		<a href="<%= request.getContextPath() %>/form.jsp">추가 이메일 등록</a>
 	</p>
 
 </body>
