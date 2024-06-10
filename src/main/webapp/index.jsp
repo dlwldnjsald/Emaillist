@@ -55,6 +55,7 @@ try {
 			<th>이메일</th>
 			<td><%= rs.getString("email") %></td>
 		</tr>
+		
 	</table>
 	<br />
 	<!--  /end -->
