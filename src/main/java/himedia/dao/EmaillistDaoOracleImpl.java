@@ -122,6 +122,7 @@ public class EmaillistDaoOracleImpl implements EmaillistDao {
 
 	@Override
 	public boolean delete(Long no) {
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int deletedCount = 0;
@@ -133,6 +134,7 @@ public class EmaillistDaoOracleImpl implements EmaillistDao {
 			pstmt.setLong(1, no);
 
 			deletedCount = pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

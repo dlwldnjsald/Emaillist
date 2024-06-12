@@ -24,9 +24,12 @@
 	String email = request.getParameter("email");	//	이메일
 	
 	
+	// 새객체 vo 만들어주고 위에서 선언한 데이터 담기
 	EmailVo vo = new EmailVo(lastName, firstName, email);
+	// DAO 호출하여 새객체 impl객체 dao 만들어주기
 	EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser, dbpass);
 	
+	//성공시 dao객체에 위의 vo객체를 사용하여 insert수행위한 호출
 	boolean success = dao.insert(vo);
 
 /*
@@ -58,14 +61,15 @@ try {
 	
 	
 
-	if (success) {	//	INSERT 성공
+	if (success) {	//	INSERT 성공시 리다이렉트 to "/emaillist/"
 		response.sendRedirect(request.getContextPath() + "/emaillist/");
+	
 	} else {
 		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "데이터 입력 중 오류가 발생했습니다.");
 	}
 
 	
-/*	
+/*
 	}
 	//	자원 정리
 	pstmt.close();

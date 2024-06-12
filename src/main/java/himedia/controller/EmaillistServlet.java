@@ -56,8 +56,8 @@ public class EmaillistServlet extends BaseServlet { //BaseServlet 상속받기
 				req.setAttribute("list", list);
 				
 				//Todo: list객체를 jsp로 forward
-				RequestDispatcher rd = getServletContext().
-									getRequestDispatcher("/WEB-INF/views/index.jsp");
+				RequestDispatcher rd = getServletContext()
+									.getRequestDispatcher("/WEB-INF/views/index.jsp");
 				
 				rd.forward(req, resp);
 				
@@ -95,7 +95,8 @@ public class EmaillistServlet extends BaseServlet { //BaseServlet 상속받기
 				System.out.println("Insert Failed");
 			}
 			
-			resp.sendRedirect(req.getContextPath() + "/el");
+			resp.sendRedirect(req.getContextPath() + "/el"); //redirect (3xx)
+			
 		} else {
 			super.doPost(req, resp);
 		}

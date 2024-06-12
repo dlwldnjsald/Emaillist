@@ -54,18 +54,22 @@
 		<!-- 리스트 -->
 		<!-- vo 객체의 getter를 이용, 리스트를 표시 -->
 		<table border="1" cellpadding="5" cellspacing="2">
+		
 			<tr>
 				<th>성</th>
 				<td><%= vo.getLastName() %></td>
 			</tr>
+			
 			<tr>
 				<th>이름</th>
 				<td><%= vo.getFirstName() %></td>
 			</tr>
+			
 			<tr>
 				<th>이메일</th>
 				<td><%= vo.getEmail() %></td>
 			</tr>
+			
 			<tr class="toolbar">
 				<td colspan="2">
 				<form method="POST"
@@ -78,6 +82,7 @@
 				</form>
 				</td>
 			</tr>
+			
 		</table>
 		<br />
 		<!-- /End -->

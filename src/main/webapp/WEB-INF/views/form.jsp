@@ -10,6 +10,7 @@
 	</head>
 
 	<body>
+	
 		<h1>메일링 리스트 가입</h1>
 		<h3>Model 2 방식</h3>
 		<p>메일링 리스트에 가입하시려면,<br />
@@ -24,6 +25,7 @@
 			
 			<label for="ln">성</label>
 			<input type="text" name="ln" value=""><br />
+			
 			<label for="fn">이름</label>
 			<input type="text" name="fn" value=""><br />
 

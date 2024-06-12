@@ -13,6 +13,7 @@ ServletContext context = getServletContext();
 String dbuser = context.getInitParameter("dbuser");
 String dbpass = context.getInitParameter("dbpass");
 %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -58,9 +59,12 @@ String dbpass = context.getInitParameter("dbpass");
 			
 			while(rs.next()) {
 		*/		
+		
+			//EmaillistDao 의 getList()메서드 index.jsp에 연결해주기
 			EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser, dbpass);
 			List<EmailVo> list = dao.getList();
 			
+			 //vo 객체의 getter를 이용, 리스트를 표시 
 			for (EmailVo vo: list) {
 %>
 		<!-- 리스트 -->
@@ -70,24 +74,34 @@ String dbpass = context.getInitParameter("dbpass");
 				<th>성</th>
 				<td><%= vo.getLastName() %></td>
 			</tr>
+			
 			<tr>
 				<th>이름</th>
 				<td><%= vo.getFirstName() %></td>
 			</tr>
+			
 			<tr>
 				<th>이메일</th>
 				<td><%= vo.getEmail() %></td>
 			</tr>
+			
 			<tr class="toolbar">
+			
 				<td colspan="2">
-				<form method="POST"
-					action="<%= request.getContextPath() %>/emaillist/delete.jsp"
-					onsubmit="delete_item(event, this)">
-					<input type="hidden" 
-						name="no" 
-						value="<%= vo.getNo() %>">
-					<button type="submit">삭제</button>	
-				</form>
+				
+					<!-- Post방식으로 delete.jsp와 연결하여 삭제작업위한 코드-->
+					<form method="POST"
+						action="<%= request.getContextPath() %>/emaillist/delete.jsp"
+						onsubmit="delete_item(event, this)">
+						
+						<input type="hidden" 
+							name="no" 
+							value="<%= vo.getNo() %>">
+							
+						<button type="submit">삭제</button>	
+						
+					</form>
+				
 				</td>
 			</tr>
 		</table>
@@ -110,7 +124,7 @@ String dbpass = context.getInitParameter("dbpass");
 		*/
 %>
 		<p>
-		<!-- ContextPath를 받아와서 form.jsp에 링크 -->
+		<!-- ContextPath를 받아와서 추가 이메일등록을 위한 form.jsp에 링크 -->
 			<a href="<%= request.getContextPath() %>/emaillist/form.jsp">추가 이메일 등록</a>
 		</p>
 
