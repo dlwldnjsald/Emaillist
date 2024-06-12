@@ -1,11 +1,14 @@
 package himedia.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import himedia.dao.EmaillistDao;
+import himedia.dao.EmaillistDaoOracleImpl;
+import himedia.vo.EmailVo;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -18,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 // 2번째 방법 서블릿 클래스에 서블릿 이름과 url 패턴을 매핑을 설정
 // 서블릿이니 httpServlet을 상속받아야 함
 @WebServlet(name="Emaillist", urlPatterns="/el")
-public class EmaillistServlet extends HttpServlet {
+public class EmaillistServlet extends BaseServlet { //BaseServlet 상속받기
 
 	//doGet 메서드 오버라이드
 	@Override
@@ -35,8 +38,24 @@ public class EmaillistServlet extends HttpServlet {
 			
 				
 			} else {
+				//목록 받아오는 부분 -> /el
+				
 				//DAO 미리 만들어두었으니 dao 활용하기 + 파라미터도받아오기
-				EmaillistDao dao = new EmaillistDaoImpl();
+				EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser,dbpass);
+				//dao의 메서드 호출 : List<EmailVo>호출
+				List<EmailVo> list = dao.getList();
+				//출력으로 list 목록확인 
+				System.out.println("list:" + list);
+				
+				
+				// list를 요청 객체에 추가하기
+				req.setAttribute("list", list);
+				
+				//Todo: list객체를 jsp로 forward
+				RequestDispatcher rd = getServletContext().
+									getRequestDispatcher("/WEB-INF/views/index.jsp");
+				
+				rd.forward(req, resp);
 				
 			}
 		

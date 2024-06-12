@@ -1,26 +1,23 @@
-<%@page import="himedia.vo.EmailVo"%>
 <%@page import="himedia.dao.EmaillistDaoOracleImpl"%>
 <%@page import="himedia.dao.EmaillistDao"%>
+
 <%@ page import="java.sql.*" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
-//	데이터베이스 접속 정보 확인
-ServletContext context = getServletContext();
-String dbuser = context.getInitParameter("dbuser");
-String dbpass = context.getInitParameter("dbpass");
-
-
-//폼 입력 데이터
-
-String noString = request.getParameter("no");
-Long no = Long.parseLong(noString);
-
-EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser, dbpass);
-
-boolean success = dao.delete(no);
+	//	데이터베이스 접속 정보 확인
+	ServletContext context = getServletContext();
+	String dbuser = context.getInitParameter("dbuser");
+	String dbpass = context.getInitParameter("dbpass");
+	
+	
+	//폼 입력 데이터
+	long no = Integer.valueOf(request.getParameter("no"));	//	pk
+	
+	EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser, dbpass);
+	boolean success = dao.delete(no);
     
 /*
 String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -49,26 +46,23 @@ try {
 	
 	
 	// 삭제 결과에 따라 다른 페이지로 리다이렉트 또는 오류 메시지 출력
-	if (success) { //delete 성공
-		response.sendRedirect(request.getContextPath()+ "/emaillist/");
-	} else { 
-		
+	if (success) {
+		response.sendRedirect(request.getContextPath() + "/emaillist/");	
 	
-		%>
-		<h1>Error</h1>
-		<p>아이템을 삭제하지 못했습니다.</p>
-		<%
-		
-	} 
+	} else {
+		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "아이템을 삭제하지 못했습니다.");
 	
-/*
 	}
-	//	자원 정리
-	pstmt.close();
-	conn.close();
-} catch (Exception e) {
-	throw e;
-}
-*/
+
+	
+	/*
+		}
+		//	자원 정리
+		pstmt.close();
+		conn.close();
+	} catch (Exception e) {
+		throw e;
+	}
+	*/
 
 %>

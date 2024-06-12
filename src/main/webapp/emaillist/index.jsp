@@ -4,6 +4,7 @@
 <%@page import="himedia.dao.EmaillistDao"%>
 
 <%@ page import="java.sql.*" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -15,24 +16,21 @@ String dbpass = context.getInitParameter("dbpass");
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>메일링 리스트:메인</title>
+<meta charset="UTF-8">
+<title>메일링 리스트:메인</title>
+<link type="text/css" 
+	rel="stylesheet" 
+	href="<%= request.getContextPath() %>/css/list.css" />
+<script>
+function delete_item(event, frm) {
+	event.preventDefault();
 	
-	<link type="text/css" 
-		rel="stylesheet" 
-		href="<%= request.getContextPath() %>/css/list.css" />
-	
-	<script>
-	function delete_item(event, frm) {
-		event.preventDefault();
-		
-		let choice = confirm("메일을 삭제하시겠습니까?");
-		if (choice) {
-			frm.submit();
-		}
+	let choice = confirm("메일을 삭제하시겠습니까?");
+	if (choice) {
+		frm.submit();
 	}
-	</script>
-	
+}
+</script>
 </head>
 <body>
 	<h1>메일링 리스트</h1>
@@ -54,7 +52,7 @@ try {
 	
 	while(rs.next()) {
 */		
-	EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser, dbpass); 
+	EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser, dbpass);
 	List<EmailVo> list = dao.getList();
 	
 	for (EmailVo vo: list) {
@@ -64,26 +62,24 @@ try {
 	<table border="1" cellpadding="5" cellspacing="2">
 		<tr>
 			<th>성</th>
-			<td><%-- = rs.getString("last_name") --%>
-				<%= vo.getLastName() %></td>
+			<td><%= vo.getLastName() %></td>
 		</tr>
 		<tr>
 			<th>이름</th>
-			<td><%--= rs.getString("first_name") --%>
-				<%= vo.getFirstName() %></td>
+			<td><%= vo.getFirstName() %></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td><%--= rs.getString("email") --%>
-				<%= vo.getEmail() %></td>
+			<td><%= vo.getEmail() %></td>
 		</tr>
 		<tr class="toolbar">
 			<td colspan="2">
 			<form method="POST"
 				action="<%= request.getContextPath() %>/emaillist/delete.jsp"
 				onsubmit="delete_item(event, this)">
-				<input type="hidden" name="no" value="<%--= rs.getString("no") --%>
-													  <%= vo.getNo() %>">
+				<input type="hidden" 
+					name="no" 
+					value="<%= vo.getNo() %>">
 				<button type="submit">삭제</button>	
 			</form>
 			</td>
@@ -91,9 +87,8 @@ try {
 	</table>
 	<br />
 	<!-- /End -->
-
 <%
-	}
+}
 	
 /*
 	}
