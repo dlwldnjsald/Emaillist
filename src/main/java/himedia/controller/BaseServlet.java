@@ -25,10 +25,6 @@ public abstract class BaseServlet extends HttpServlet{
 		//받아왔으니 context 로부터 초기화 파라미터 불러올수 있을것 총 2개 >dbuser, dbpass
 		dbuser = context.getInitParameter("dbuser");
 		dbpass = context.getInitParameter("dbpass");
-		
-		
-		
-		
-		
+
 	}
 }

@@ -2,16 +2,20 @@
 
 
 <!DOCTYPE html>
-	<html>
+<html>
 
 	<head>
+		
 		<meta charset="UTF-8">
 		<title>메일링 리스트: 가입 폼</title>
+		
 	</head>
 
 	<body>
+	
 		<h1>메일링 리스트 가입</h1>
 		<h3>Model 1 방식</h3>
+
 		<p>메일링 리스트에 가입하시려면,<br />
 			아래 항목을 기입하고 등록 버튼을 클릭하세요.
 		</p>
@@ -33,6 +37,7 @@
 		<p>
 			<a href="<%= request.getContextPath() %>/emaillist/">목록</a>
 		</p>
+
 	</body>
 
-	</html>
+</html>

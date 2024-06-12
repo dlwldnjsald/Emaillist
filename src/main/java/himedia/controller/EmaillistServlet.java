@@ -34,8 +34,12 @@ public class EmaillistServlet extends BaseServlet { //BaseServlet 상속받기
 		
 			//a=form->입력창, or else ->목록창
 			if ("form".equals(actionName) ) {
+				
 				//사용자 입력 페이지로 FORWARD
-			
+				RequestDispatcher rd = getServletContext()
+										.getRequestDispatcher("/WEB-INF/views/form.jsp");
+				
+				rd.forward(req, resp); // 잊지말기 (forward)
 				
 			} else {
 				//목록 받아오는 부분 -> /el
@@ -58,9 +62,43 @@ public class EmaillistServlet extends BaseServlet { //BaseServlet 상속받기
 				rd.forward(req, resp);
 				
 			}
-		
-		
-		super.doGet(req, resp);
-	}
+		}
 
+	@Override
+	protected void doPost(HttpServletRequest req, 
+			HttpServletResponse resp) throws ServletException, IOException {
+		//삽입 (insert), 수정(update), 삭제(delete)
+		//a=insert / a=update/ a=delete
+		
+		String actionName = req.getParameter("a");
+		
+		if ("insert".equals(actionName)) {
+			
+			//Insert 기능 수행
+			String firstName = req.getParameter("fn");
+			String lastName= req.getParameter("ln");
+			String email = req.getParameter("email");
+			
+			//Vo 호풀
+			EmailVo vo = new EmailVo();
+			vo.setFirstName(firstName);
+			vo.setLastName(lastName);
+			vo.setEmail(email);
+			
+			//DAO 호출
+			EmaillistDao dao = new EmaillistDaoOracleImpl(dbuser, dbpass);
+			boolean success = dao.insert(vo);
+			
+			if (success) {
+				System.out.println("Insert SUCCESS");
+			} else {
+				System.out.println("Insert Failed");
+			}
+			
+			resp.sendRedirect(req.getContextPath() + "/el");
+		} else {
+			super.doPost(req, resp);
+		}
+					
+	}
 }

@@ -42,7 +42,7 @@ try {
 		response.sendRedirect(request.getContextPath());
 	} else {
 		
-	*/
+*/
 	
 	
 	// 삭제 결과에 따라 다른 페이지로 리다이렉트 또는 오류 메시지 출력
