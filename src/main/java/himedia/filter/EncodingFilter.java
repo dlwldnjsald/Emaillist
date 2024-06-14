@@ -9,7 +9,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 
-
+//emaillist
 // 어노테이션 방식으로 필터 등록하기 
 //@WebFilter(filterName="EncodingFilter", urlPatterns = {"/*"})
 
